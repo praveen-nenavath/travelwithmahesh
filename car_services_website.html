@@ -1,0 +1,494 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --c1:#1a1a2e;--c2:#16213e;--c3:#0f3460;--acc:#e94560;--gold:#f5a623;
+    --txt:#f0f0f0;--txt2:#a0a0b0;--card:rgba(255,255,255,0.06);--border:rgba(255,255,255,0.1);
+  }
+  body{font-family:'Inter',sans-serif;background:var(--c1);color:var(--txt);overflow-x:hidden}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:100;background:rgba(26,26,46,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-size:1.4rem;font-weight:700;color:var(--acc)}.logo span{color:var(--gold)}
+  .nav-links{display:flex;gap:1.5rem;list-style:none}
+  .nav-links a{color:var(--txt2);text-decoration:none;font-size:0.9rem;transition:color .2s}.nav-links a:hover{color:var(--acc)}
+  .nav-cta{background:var(--acc);color:#fff;border:none;padding:8px 20px;border-radius:6px;font-size:0.85rem;font-weight:500;cursor:pointer;transition:opacity .2s}.nav-cta:hover{opacity:.85}
+
+  /* HERO */
+  .hero{min-height:90vh;display:flex;align-items:center;padding:4rem 2rem;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 50%,var(--c3) 100%)}
+  .hero-content{flex:1;max-width:540px;z-index:2}
+  .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(233,69,96,0.15);border:1px solid rgba(233,69,96,0.3);color:var(--acc);font-size:0.75rem;padding:4px 12px;border-radius:20px;margin-bottom:1.5rem}
+  .hero h1{font-size:3rem;font-weight:700;line-height:1.2;margin-bottom:1rem}
+  .hero h1 .hi{color:var(--acc)}
+  .hero p{font-size:1.05rem;color:var(--txt2);line-height:1.7;margin-bottom:2rem}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-primary{background:var(--acc);color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:0.95rem;font-weight:500;cursor:pointer;transition:transform .15s,opacity .15s}.btn-primary:hover{transform:translateY(-2px);opacity:.9}
+  .btn-secondary{background:transparent;color:var(--txt);border:1px solid var(--border);padding:12px 28px;border-radius:8px;font-size:0.95rem;cursor:pointer;transition:border-color .2s}.btn-secondary:hover{border-color:var(--acc);color:var(--acc)}
+
+  /* 3D CAR SVG */
+  .hero-car{flex:1;display:flex;align-items:center;justify-content:center;z-index:2;animation:float 4s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+  .car-glow{filter:drop-shadow(0 0 30px rgba(233,69,96,0.35)) drop-shadow(0 20px 40px rgba(0,0,0,0.6))}
+
+  /* STATS */
+  .stats{display:flex;gap:2rem;flex-wrap:wrap;padding:2.5rem 2rem;border-bottom:1px solid var(--border)}
+  .stat{text-align:center;flex:1;min-width:120px}
+  .stat-num{font-size:2rem;font-weight:700;color:var(--acc)}
+  .stat-lbl{font-size:0.8rem;color:var(--txt2);margin-top:4px}
+
+  /* SECTION */
+  section{padding:4rem 2rem}
+  .section-tag{font-size:0.75rem;text-transform:uppercase;letter-spacing:2px;color:var(--acc);margin-bottom:.5rem}
+  .section-title{font-size:2rem;font-weight:600;margin-bottom:.5rem}
+  .section-sub{color:var(--txt2);font-size:0.95rem;max-width:480px;line-height:1.6;margin-bottom:2.5rem}
+
+  /* DISCOUNT TICKER */
+  .ticker-wrap{background:var(--acc);padding:10px;overflow:hidden;white-space:nowrap}
+  .ticker{display:inline-block;animation:ticker 20s linear infinite;font-size:0.85rem;font-weight:500}
+  @keyframes ticker{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
+
+  /* OFFERS GRID */
+  .offers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem}
+  .offer-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;position:relative;overflow:hidden;transition:transform .25s,border-color .25s;cursor:pointer}
+  .offer-card:hover{transform:translateY(-4px);border-color:var(--acc)}
+  .offer-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--acc),var(--gold))}
+  .offer-badge{background:var(--gold);color:#1a1a2e;font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:.75rem}
+  .offer-pct{font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1}
+  .offer-title{font-size:1rem;font-weight:600;margin:.5rem 0 .3rem}
+  .offer-desc{font-size:0.82rem;color:var(--txt2);line-height:1.5}
+  .offer-exp{font-size:0.75rem;color:var(--acc);margin-top:.75rem}
+
+  /* REGISTER SECTION */
+  .register-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+  .register-form{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem}
+  .form-group{margin-bottom:1.25rem}
+  .form-group label{display:block;font-size:0.82rem;color:var(--txt2);margin-bottom:6px;font-weight:500}
+  .form-group input,.form-group select{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--txt);font-size:0.9rem;outline:none;transition:border-color .2s;font-family:inherit}
+  .form-group input:focus,.form-group select:focus{border-color:var(--acc)}
+  .form-group input::placeholder{color:var(--txt2)}
+  .form-group select option{background:var(--c2)}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .submit-btn{width:100%;background:var(--acc);color:#fff;border:none;padding:13px;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:opacity .2s;margin-top:.5rem;font-family:inherit}.submit-btn:hover{opacity:.85}
+  .register-info{display:flex;flex-direction:column;gap:1rem}
+  .info-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;display:flex;align-items:flex-start;gap:1rem}
+  .info-icon{width:42px;height:42px;border-radius:10px;background:rgba(233,69,96,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+  /* SERVICES */
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.25rem}
+  .svc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;text-align:center;transition:transform .25s,border-color .25s;cursor:pointer}
+  .svc-card:hover{transform:translateY(-4px);border-color:var(--acc)}
+  .svc-icon{font-size:2.2rem;margin-bottom:.75rem}
+  .svc-title{font-size:0.95rem;font-weight:600;margin-bottom:.35rem}
+  .svc-desc{font-size:0.8rem;color:var(--txt2);line-height:1.5}
+
+  /* QUOTE */
+  .quote-section{background:linear-gradient(135deg,var(--c3),var(--c2));border:1px solid var(--border);border-radius:16px;padding:3rem;text-align:center;margin:0 2rem}
+  .quote-text{font-size:1.5rem;font-weight:300;font-style:italic;line-height:1.6;color:var(--txt);max-width:700px;margin:0 auto 1rem}
+  .quote-author{color:var(--acc);font-size:0.9rem;font-weight:500}
+  .quote-dots{display:flex;justify-content:center;gap:8px;margin-top:1.5rem}
+  .qdot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .2s}
+  .qdot.active{background:var(--acc)}
+
+  /* TESTIMONIALS */
+  .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+  .testi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+  .testi-stars{color:var(--gold);font-size:0.9rem;margin-bottom:.75rem}
+  .testi-text{font-size:0.88rem;color:var(--txt2);line-height:1.6;margin-bottom:1rem}
+  .testi-user{display:flex;align-items:center;gap:.75rem}
+  .avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:600;flex-shrink:0}
+
+  /* FOOTER */
+  footer{background:var(--c2);border-top:1px solid var(--border);padding:3rem 2rem 1.5rem}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
+  .footer-brand p{font-size:0.85rem;color:var(--txt2);line-height:1.6;margin-top:.75rem;max-width:260px}
+  .footer-col h4{font-size:0.9rem;font-weight:600;margin-bottom:1rem}
+  .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+  .footer-col ul li a{color:var(--txt2);text-decoration:none;font-size:0.83rem;transition:color .2s}.footer-col ul li a:hover{color:var(--acc)}
+  .footer-bottom{border-top:1px solid var(--border);padding-top:1.25rem;display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;color:var(--txt2)}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:2rem;right:2rem;background:#1e3a2e;border:1px solid #2d6a4f;color:#52b788;padding:12px 20px;border-radius:10px;font-size:0.88rem;z-index:999;transform:translateY(100px);opacity:0;transition:all .35s;pointer-events:none}
+  .toast.show{transform:translateY(0);opacity:1}
+
+  @media(max-width:768px){
+    .hero{flex-direction:column;text-align:center;padding:3rem 1.25rem}
+    .hero h1{font-size:2rem}.hero-car{margin-top:2rem;transform:scale(.85)}
+    .hero-btns{justify-content:center}
+    .register-wrap{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}
+    nav .nav-links{display:none}
+    .footer-grid{grid-template-columns:1fr 1fr}
+    .quote-section{margin:0 1rem;padding:2rem 1.25rem}.quote-text{font-size:1.1rem}
+  }
+</style>
+
+<h2 class="sr-only">AutoDrive — Car Services Platform with trip registration, discount offers, and booking</h2>
+
+<nav>
+  <div class="logo">Auto<span>Drive</span></div>
+  <ul class="nav-links">
+    <li><a href="#offers">Offers</a></li>
+    <li><a href="#register">Book Trip</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <button class="nav-cta" onclick="scrollToRegister()">Register Now</button>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <span class="ticker">🔥 FLASH SALE: 40% off weekend rentals · 🚗 Free GPS with every booking · ⭐ New: Luxury fleet added · 🎁 Refer a friend → ₹500 cashback · 🛡️ Full insurance included · 🏎️ Sports cars now available in Hyderabad · 🎉 Diwali Special: 30% off all categories · &nbsp;&nbsp;&nbsp;&nbsp;</span>
+</div>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">⚡ Premium Car Services · Hyderabad</div>
+    <h1>Drive Your <span class="hi">Dream</span><br>Every Trip</h1>
+    <p>Book premium cars, register for epic road trips, and unlock exclusive discounts. Your journey starts here — safe, smart, and stylish.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="scrollToRegister()">Register a Trip ➜</button>
+      <button class="btn-secondary" onclick="scrollToOffers()">View Offers</button>
+    </div>
+  </div>
+  <div class="hero-car">
+    <svg class="car-glow" width="420" height="260" viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg">
+      <!-- shadow -->
+      <ellipse cx="210" cy="240" rx="155" ry="14" fill="rgba(0,0,0,0.45)"/>
+      <!-- body bottom -->
+      <rect x="60" y="155" width="300" height="60" rx="14" fill="#b71c3c"/>
+      <!-- body main -->
+      <path d="M80 155 Q90 95 145 85 L220 75 Q260 72 295 85 Q335 95 345 155 Z" fill="#e94560"/>
+      <!-- roof highlight -->
+      <path d="M130 155 Q138 105 160 95 L220 88 Q255 85 278 95 Q302 108 312 155 Z" fill="#c62a47"/>
+      <!-- windshield -->
+      <path d="M148 150 Q160 108 180 100 L220 95 Q250 93 265 102 Q283 112 290 150 Z" fill="rgba(100,200,255,0.35)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <!-- rear window -->
+      <path d="M148 150 Q152 118 165 108 L175 104" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <!-- door line -->
+      <line x1="213" y1="88" x2="213" y2="155" stroke="rgba(0,0,0,0.3)" stroke-width="1.5"/>
+      <!-- door handles -->
+      <rect x="175" y="128" width="22" height="5" rx="2.5" fill="rgba(255,255,255,0.25)"/>
+      <rect x="235" y="128" width="22" height="5" rx="2.5" fill="rgba(255,255,255,0.25)"/>
+      <!-- hood -->
+      <path d="M60 155 Q62 140 80 135 L115 132 Q118 135 118 155 Z" fill="#c62a47"/>
+      <!-- trunk -->
+      <path d="M305 155 Q305 132 330 132 L360 135 Q378 140 360 155 Z" fill="#c62a47"/>
+      <!-- front bumper -->
+      <path d="M58 168 Q55 180 62 195 L120 200 L120 155 Z" fill="#8b1225" rx="4"/>
+      <!-- rear bumper -->
+      <path d="M362 168 Q365 180 358 195 L300 200 L300 155 Z" fill="#8b1225"/>
+      <!-- bumper accent -->
+      <path d="M62 195 Q90 205 120 200" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
+      <path d="M300 200 Q330 205 358 195" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
+      <!-- headlights -->
+      <ellipse cx="80" cy="158" rx="16" ry="10" fill="#fff7e6" opacity=".9"/>
+      <ellipse cx="80" cy="158" rx="11" ry="7" fill="#ffe082"/>
+      <path d="M96 154 L135 148" stroke="#ffe082" stroke-width="2" opacity=".4"/>
+      <!-- taillights -->
+      <ellipse cx="340" cy="158" rx="16" ry="10" fill="#ff1744" opacity=".9"/>
+      <ellipse cx="340" cy="158" rx="9" ry="6" fill="#ff6d6d"/>
+      <!-- wheels -->
+      <circle cx="130" cy="200" r="36" fill="#1a1a2e" stroke="#333" stroke-width="3"/>
+      <circle cx="130" cy="200" r="26" fill="#252535"/>
+      <circle cx="130" cy="200" r="12" fill="#444"/>
+      <circle cx="130" cy="200" r="6" fill="#666"/>
+      <!-- spokes front -->
+      <line x1="130" y1="174" x2="130" y2="226" stroke="#888" stroke-width="2.5"/>
+      <line x1="104" y1="200" x2="156" y2="200" stroke="#888" stroke-width="2.5"/>
+      <line x1="111" y1="181" x2="149" y2="219" stroke="#888" stroke-width="2.5"/>
+      <line x1="149" y1="181" x2="111" y2="219" stroke="#888" stroke-width="2.5"/>
+      <!-- wheel shine -->
+      <ellipse cx="123" cy="192" rx="5" ry="4" fill="rgba(255,255,255,0.12)"/>
+
+      <circle cx="290" cy="200" r="36" fill="#1a1a2e" stroke="#333" stroke-width="3"/>
+      <circle cx="290" cy="200" r="26" fill="#252535"/>
+      <circle cx="290" cy="200" r="12" fill="#444"/>
+      <circle cx="290" cy="200" r="6" fill="#666"/>
+      <line x1="290" y1="174" x2="290" y2="226" stroke="#888" stroke-width="2.5"/>
+      <line x1="264" y1="200" x2="316" y2="200" stroke="#888" stroke-width="2.5"/>
+      <line x1="271" y1="181" x2="309" y2="219" stroke="#888" stroke-width="2.5"/>
+      <line x1="309" y1="181" x2="271" y2="219" stroke="#888" stroke-width="2.5"/>
+      <ellipse cx="283" cy="192" rx="5" ry="4" fill="rgba(255,255,255,0.12)"/>
+
+      <!-- roof antenna -->
+      <line x1="220" y1="75" x2="225" y2="58" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+      <circle cx="225" cy="56" r="3" fill="rgba(255,255,255,0.4)"/>
+      <!-- body shine -->
+      <path d="M165 98 Q195 90 245 93 Q265 96 278 103" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+    </svg>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-num">12K+</div><div class="stat-lbl">Happy Customers</div></div>
+  <div class="stat"><div class="stat-num">350+</div><div class="stat-lbl">Cars Available</div></div>
+  <div class="stat"><div class="stat-num">48</div><div class="stat-lbl">Cities Covered</div></div>
+  <div class="stat"><div class="stat-num">4.9★</div><div class="stat-lbl">Average Rating</div></div>
+</div>
+
+<!-- OFFERS -->
+<section id="offers">
+  <div class="section-tag">💥 Hot Deals</div>
+  <div class="section-title">Exclusive Discount Offers</div>
+  <div class="section-sub">Limited time deals crafted just for you. Grab them before they're gone!</div>
+  <div class="offers-grid">
+    <div class="offer-card" onclick="claimOffer('Weekend Escape')">
+      <div class="offer-badge">🏖️ WEEKEND</div>
+      <div class="offer-pct">40%</div>
+      <div class="offer-title">Weekend Escape</div>
+      <div class="offer-desc">Full-day rental on Saturdays & Sundays. Includes fuel allowance up to 100km.</div>
+      <div class="offer-exp">⏰ Expires: Jun 30, 2026</div>
+    </div>
+    <div class="offer-card" onclick="claimOffer('First Ride Free')">
+      <div class="offer-badge">🎉 NEW USER</div>
+      <div class="offer-pct">₹500</div>
+      <div class="offer-title">First Ride Free</div>
+      <div class="offer-desc">New customers get ₹500 off their first booking. No minimum fare required.</div>
+      <div class="offer-exp">⏰ Expires: Jul 15, 2026</div>
+    </div>
+    <div class="offer-card" onclick="claimOffer('Monsoon Drive')">
+      <div class="offer-badge">🌧️ SEASONAL</div>
+      <div class="offer-pct">25%</div>
+      <div class="offer-title">Monsoon Drive</div>
+      <div class="offer-desc">Beat the rain with special monsoon-ready vehicles and 25% off across all SUVs.</div>
+      <div class="offer-exp">⏰ Expires: Sep 30, 2026</div>
+    </div>
+    <div class="offer-card" onclick="claimOffer('Corporate Flexi')">
+      <div class="offer-badge">💼 CORPORATE</div>
+      <div class="offer-pct">35%</div>
+      <div class="offer-title">Corporate Flexi</div>
+      <div class="offer-desc">Monthly corporate subscriptions with priority booking and GST billing.</div>
+      <div class="offer-exp">⏰ Ongoing deal</div>
+    </div>
+    <div class="offer-card" onclick="claimOffer('Luxury Weekend')">
+      <div class="offer-badge">👑 PREMIUM</div>
+      <div class="offer-pct">20%</div>
+      <div class="offer-title">Luxury Weekend</div>
+      <div class="offer-desc">BMW, Mercedes & Audi — luxury cars at 20% off every Friday to Sunday.</div>
+      <div class="offer-exp">⏰ Expires: Aug 31, 2026</div>
+    </div>
+    <div class="offer-card" onclick="claimOffer('Family Road Trip')">
+      <div class="offer-badge">👨‍👩‍👧 FAMILY</div>
+      <div class="offer-pct">30%</div>
+      <div class="offer-title">Family Road Trip</div>
+      <div class="offer-desc">7-seater MPVs & SUVs with child seats. Book 3+ days and save big on tolls too.</div>
+      <div class="offer-exp">⏰ Expires: Dec 31, 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE SECTION -->
+<div class="quote-section">
+  <div id="quote-text" class="quote-text">"Life is a journey — make sure you have the right car for the ride."</div>
+  <div id="quote-author" class="quote-author">— AutoDrive Philosophy</div>
+  <div class="quote-dots">
+    <div class="qdot active" onclick="changeQuote(0)"></div>
+    <div class="qdot" onclick="changeQuote(1)"></div>
+    <div class="qdot" onclick="changeQuote(2)"></div>
+    <div class="qdot" onclick="changeQuote(3)"></div>
+  </div>
+</div>
+
+<!-- REGISTER -->
+<section id="register">
+  <div class="section-tag">🚗 Quick Booking</div>
+  <div class="section-title">Register Your Trip</div>
+  <div class="section-sub">Fill in your details below and hit the road in minutes. We'll handle the rest.</div>
+  <div class="register-wrap">
+    <div class="register-form">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="fname" placeholder="e.g. Arjun Sharma"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="fphone" placeholder="+91 98765 43210"/>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="femail" placeholder="you@email.com"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Pickup City</label>
+          <select id="fpickup">
+            <option value="">Select city</option>
+            <option>Hyderabad</option><option>Bangalore</option><option>Chennai</option>
+            <option>Mumbai</option><option>Delhi</option><option>Pune</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Destination</label>
+          <input type="text" id="fdest" placeholder="e.g. Goa, Shirdi"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Trip Date</label>
+          <input type="date" id="fdate"/>
+        </div>
+        <div class="form-group">
+          <label>Car Category</label>
+          <select id="fcar">
+            <option value="">Select type</option>
+            <option>Economy (Hatchback)</option><option>Sedan</option><option>SUV</option>
+            <option>Luxury</option><option>Sports</option><option>Electric</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Special Requests</label>
+        <input type="text" id="fnotes" placeholder="Child seat, GPS, extra luggage…"/>
+      </div>
+      <button class="submit-btn" onclick="registerTrip()">🚀 Confirm Trip Registration</button>
+    </div>
+    <div class="register-info">
+      <div class="info-card">
+        <div class="info-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e94560" stroke-width="2" stroke-linecap="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div style="font-size:.9rem;font-weight:600;margin-bottom:.25rem">Doorstep Pickup</div><div style="font-size:.82rem;color:var(--txt2);line-height:1.5">Your car arrives at your location on time, every time. No queues, no hassle.</div></div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e94560" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.955 11.955 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+        <div><div style="font-size:.9rem;font-weight:600;margin-bottom:.25rem">Full Insurance Cover</div><div style="font-size:.82rem;color:var(--txt2);line-height:1.5">Every trip includes comprehensive insurance. Drive confident, worry-free.</div></div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e94560" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div><div style="font-size:.9rem;font-weight:600;margin-bottom:.25rem">24/7 Support</div><div style="font-size:.82rem;color:var(--txt2);line-height:1.5">Our road assistance team is always available. Call, chat, or WhatsApp anytime.</div></div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e94560" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div><div style="font-size:.9rem;font-weight:600;margin-bottom:.25rem">Transparent Pricing</div><div style="font-size:.82rem;color:var(--txt2);line-height:1.5">No hidden charges. What you see is exactly what you pay. Simple and fair.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="background:rgba(255,255,255,0.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="section-tag">⚙️ What We Offer</div>
+  <div class="section-title">Our Services</div>
+  <div class="section-sub">From daily commutes to month-long adventures — we've got every journey covered.</div>
+  <div class="services-grid">
+    <div class="svc-card"><div class="svc-icon">🚗</div><div class="svc-title">Self-Drive Rental</div><div class="svc-desc">Pick up, drive yourself, drop off. Total freedom on the road.</div></div>
+    <div class="svc-card"><div class="svc-icon">👨‍✈️</div><div class="svc-title">Chauffeur Drive</div><div class="svc-desc">Professional drivers, immaculate cars. Relax while we navigate.</div></div>
+    <div class="svc-card"><div class="svc-icon">✈️</div><div class="svc-title">Airport Transfers</div><div class="svc-desc">Punctual pickups and drops to all major airports. Flight tracking included.</div></div>
+    <div class="svc-card"><div class="svc-icon">🏔️</div><div class="svc-title">Road Trip Packages</div><div class="svc-desc">Curated itineraries with pre-booked hotels and pit stops.</div></div>
+    <div class="svc-card"><div class="svc-icon">⚡</div><div class="svc-title">Electric Cars</div><div class="svc-desc">Zero-emission rides. Tata Nexon EV, MG ZS EV & more available.</div></div>
+    <div class="svc-card"><div class="svc-icon">💍</div><div class="svc-title">Wedding Cars</div><div class="svc-desc">Luxury fleets with decoration, uniformed drivers for your special day.</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="about">
+  <div class="section-tag">💬 Reviews</div>
+  <div class="section-title">What Customers Say</div>
+  <div class="section-sub">Real experiences from real drivers across India.</div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"Booked a Hyundai Creta for our Coorg trip. The car was spotless and the whole process from booking to drop-off was flawless. AutoDrive is my go-to!"</div>
+      <div class="testi-user"><div class="avatar" style="background:rgba(233,69,96,0.2);color:#e94560">AR</div><div><div style="font-size:.88rem;font-weight:500">Ananya Reddy</div><div style="font-size:.78rem;color:var(--txt2)">Hyderabad · SUV Trip</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"The weekend 40% off deal was unbelievable. Got a premium sedan for a Pondicherry road trip at a fraction of the usual cost. Highly recommend!"</div>
+      <div class="testi-user"><div class="avatar" style="background:rgba(245,166,35,0.2);color:#f5a623">SK</div><div><div style="font-size:.88rem;font-weight:500">Siddharth Kumar</div><div style="font-size:.78rem;color:var(--txt2)">Bangalore · Sedan Trip</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"Airport transfer was seamless — driver was there 10 mins early. The car was clean and the ride was smooth. Will never use a cab app again for airport runs."</div>
+      <div class="testi-user"><div class="avatar" style="background:rgba(82,200,120,0.2);color:#52c878">PM</div><div><div style="font-size:.88rem;font-weight:500">Priya Menon</div><div style="font-size:.78rem;color:var(--txt2)">Chennai · Airport Transfer</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">Auto<span>Drive</span></div>
+      <p>Your trusted partner for premium car services across India. Safe drives, happy memories, unbeatable prices.</p>
+      <div style="margin-top:1rem;display:flex;gap:.75rem">
+        <span style="font-size:1.2rem;cursor:pointer" title="Facebook">📘</span>
+        <span style="font-size:1.2rem;cursor:pointer" title="Instagram">📸</span>
+        <span style="font-size:1.2rem;cursor:pointer" title="Twitter">🐦</span>
+        <span style="font-size:1.2rem;cursor:pointer" title="WhatsApp">💬</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Self-Drive</a></li><li><a href="#">Chauffeur</a></li>
+        <li><a href="#">Airport Taxi</a></li><li><a href="#">Road Trips</a></li>
+        <li><a href="#">Wedding Cars</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li><li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li><li><a href="#">Press</a></li>
+        <li><a href="#">Partners</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li><li><a href="#">Track Booking</a></li>
+        <li><a href="#">Cancellation</a></li><li><a href="#">Insurance FAQ</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 AutoDrive. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service · Sitemap</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const quotes=[
+  {text:'"Life is a journey — make sure you have the right car for the ride."',author:'— AutoDrive Philosophy'},
+  {text:'"The road is there, it will always be there. You just have to decide when to take it."',author:'— Patty Hansen'},
+  {text:'"Not all those who wander are lost — but with AutoDrive, you\'ll always find your way back."',author:'— Inspired by Tolkien'},
+  {text:'"A car is not just transportation. It\'s freedom, stories, and the wind in your hair."',author:'— Every AutoDrive Customer'}
+];
+let qIdx=0;
+function changeQuote(i){
+  qIdx=i;
+  document.getElementById('quote-text').textContent=quotes[i].text;
+  document.getElementById('quote-author').textContent=quotes[i].author;
+  document.querySelectorAll('.qdot').forEach((d,j)=>d.classList.toggle('active',j===i));
+}
+setInterval(()=>changeQuote((qIdx+1)%quotes.length),5000);
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3200);
+}
+function claimOffer(name){showToast('🎉 "'+name+'" offer applied! Use at checkout.');}
+function scrollToRegister(){document.getElementById('register').scrollIntoView({behavior:'smooth'});}
+function scrollToOffers(){document.getElementById('offers').scrollIntoView({behavior:'smooth'});}
+
+function registerTrip(){
+  const n=document.getElementById('fname').value.trim();
+  const p=document.getElementById('fphone').value.trim();
+  const city=document.getElementById('fpickup').value;
+  const dest=document.getElementById('fdest').value.trim();
+  const dt=document.getElementById('fdate').value;
+  const car=document.getElementById('fcar').value;
+  if(!n||!p||!city||!dest||!dt||!car){showToast('⚠️ Please fill all required fields.');return;}
+  showToast('✅ Trip registered! Confirmation sent to your email.');
+  ['fname','fphone','femail','fdest','fdate','fnotes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fpickup').value='';
+  document.getElementById('fcar').value='';
+}
+</script>
